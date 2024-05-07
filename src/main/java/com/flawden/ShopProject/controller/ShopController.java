@@ -3,14 +3,13 @@ package com.flawden.ShopProject.controller;
 import com.flawden.ShopProject.exception.CartException;
 import com.flawden.ShopProject.model.Cart;
 import com.flawden.ShopProject.service.ShopService;
-import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.ApplicationScope;
+import org.springframework.web.context.annotation.SessionScope;
+
+import java.util.List;
 
 @RestController
-@Scope(scopeName = "session")
 @RequestMapping("/store/order")
 public class ShopController {
 
@@ -27,8 +26,8 @@ public class ShopController {
     }
 
     @GetMapping("/get")
-    public Cart getCart() throws CartException {
-        return shopService.getCart();
+    public List<Long> getCart() throws CartException {
+        return shopService.getCart().getProductsId();
     }
 
     @ExceptionHandler

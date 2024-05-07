@@ -1,20 +1,20 @@
 package com.flawden.ShopProject.db;
 
-import com.flawden.ShopProject.exception.CartException;
 import com.flawden.ShopProject.model.Cart;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.context.annotation.ApplicationScope;
+import org.springframework.web.context.annotation.SessionScope;
 
 @Repository
-@Scope(scopeName = "session")
+@SessionScope
 public class CartRepository {
 
-    @Autowired
     private Cart cart;
 
-    public void addToCart (long ... products) throws CartException {
+    public CartRepository(Cart cart) {
+        this.cart = cart;
+    }
+
+    public void addToCart (long ... products) {
         for (Long product: products) {
             cart.getProductsId().add(product);
         }

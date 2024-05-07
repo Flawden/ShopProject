@@ -3,12 +3,10 @@ package com.flawden.ShopProject.service;
 import com.flawden.ShopProject.db.CartRepository;
 import com.flawden.ShopProject.exception.CartException;
 import com.flawden.ShopProject.model.Cart;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.ApplicationScope;
+import org.springframework.web.context.annotation.SessionScope;
 
 @Service
-@Scope(scopeName = "session")
 public class ShopService {
 
     private CartRepository cartRepository;
@@ -18,7 +16,7 @@ public class ShopService {
     }
 
     public void add(long... id) throws CartException {
-        if (id.length < 0) {
+        if (id.length <= 0) {
             throw new CartException("Ошибка! Не передано ни одного значения");
         }
         cartRepository.addToCart(id);
